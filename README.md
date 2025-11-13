@@ -1,98 +1,153 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 Telemetry Ingestor Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is a **NestJS-based Telemetry Ingestor API** designed to receive, store, and test IoT telemetry data using webhooks.
+It demonstrates RESTful API creation, MongoDB Atlas integration, and unit testing with Jest.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🧬 Features
+* REST API endpoints for telemetry ingestion
+* MongoDB Atlas database connection for storing telemetry data
+* Webhook integration using [Webhook.site](https://webhook.site)
+* Unit tests using Jest
+* Modular NestJS structure (Controller, Service, Schema)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## ⚙️ Setup Instructions
+
+### 1️⃣  unZip file
+
+
+
+### 2️⃣ Install Dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+### 3️⃣ Create `.env` File
+
+If you are using **MongoDB Atlas**, add your connection string:
+
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/telemetry
+PORT=3000
+```
+
+
+If not using Atlas, you can run MongoDB locally and update the URI accordingly.
+
+### 4️⃣ Run the Application
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Run tests
+This will start your NestJS server at
+👉 **[http://localhost:3000](http://localhost:3000)**
+
+---
+
+## 🌐 Webhook.site URL
+
+During testing, all incoming telemetry POST requests were sent to:
+
+**Webhook URL:**
+
+```
+https://webhook.site/your-unique-id
+```
+
+*(Alternatively, include a screenshot or your request ID if required by your instructor.)*
+
+Example Request:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+curl -X POST https://webhook.site/your-unique-id \
+  -H "Content-Type: application/json" \
+  -d '{"deviceId": "sensor-01", "temperature": 27.3, "humidity": 61}'
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 🧠 MongoDB Atlas Connection Note
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+This project uses **MongoDB Atlas** for cloud data storage.
+The connection string is securely stored in the `.env` file and imported in `app.module.ts` as:
+
+```ts
+MongooseModule.forRoot(process.env.MONGO_URI)
+```
+
+If Atlas is unavailable, switch to a local MongoDB server by updating the URI.
+
+---
+
+## 🧪 Running Tests
+
+Run all unit tests:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run test
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Run with watch mode:
 
-## Resources
+```bash
+npm run test:watch
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Run with coverage report:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npm run test:cov
+```
 
-## Support
+Example Output:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+ PASS  src/telemetry/telemetry.controller.spec.ts
+ PASS  src/telemetry/telemetry.service.spec.ts
+ PASS  src/health/health.controller.spec.ts
+ PASS  src/app.controller.spec.ts
 
-## Stay in touch
+Test Suites: 4 passed, 4 total
+Tests:       4 passed, 4 total
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 🤖 AI Assistance Summary
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+AI tools (e.g., ChatGPT) were used for:
+
+* Structuring the NestJS project (modules, controllers, and schemas)
+* Generating initial unit test templates with Jest
+* Writing the MongoDB schema and connection logic
+* Creating the Webhook integration and test examples
+* Drafting this README file structure and documentation format
+* documenting readme.md 
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+ ├── app.controller.ts
+ ├── app.module.ts
+ ├── telemetry/
+ │   ├── telemetry.controller.ts
+ │   ├── telemetry.service.ts
+ │   └── telemetry.schema.ts
+ ├── health/
+ │   ├── health.controller.ts
+ └── main.ts
+```
+
+---
+
+## 📜 License
+
+MIT License © 2025 Prasad Madushan
