@@ -6,6 +6,7 @@ It demonstrates RESTful API creation, MongoDB Atlas integration, and unit testin
 ---
 
 ## 🧬 Features
+
 * REST API endpoints for telemetry ingestion
 * MongoDB Atlas database connection for storing telemetry data
 * Webhook integration using [Webhook.site](https://webhook.site)
